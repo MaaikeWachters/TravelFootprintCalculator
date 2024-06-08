@@ -20,7 +20,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-function submitForm(name) {
+function submitForm() {
+  console.log("submitted");
   var nameValue = document.getElementById("name").value;
   set(ref(db, "users/" + userId), {
     username: nameValue,
