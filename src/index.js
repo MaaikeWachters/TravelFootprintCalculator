@@ -128,15 +128,246 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-function handleChange() {
-// Get references to DOM elements
-const genderEl = document.getElementById("gender");
-//const submitButtonEl = document.getElementById("submit-btn");
-console.log(genderEl);
+// Get the select element
+const genderSelect = document.getElementById("gender");
+const genderSelectionEl = document.getElementById("gender-selection");
 
-const selectedGender = genderEl.value; 
-console.log(selectedGender);
-}
+const ageSelect = document.getElementById("age");
+const ageSelectionEl = document.getElementById("age-selection");
+
+const nationalitySelect = document.getElementById("nationality");
+const nationalitySelectionEl = document.getElementById("nationality-selection");
+
+// Select gender
+genderSelect.addEventListener("change", function () {
+  const selectedGender = genderSelect.value;
+  genderSelectionEl.innerHTML = `selected: ${selectedGender}`;
+  console.log("Selected gender:", selectedGender);
+});
+
+// Select age
+ageSelect.addEventListener("change", function () {
+  const selectedAge = ageSelect.value;
+  ageSelectionEl.innerHTML = `selected: ${selectedAge}`;
+  console.log("Selected age:", selectedAge);
+});
+
+// Select nationality
+
+  const nationalities = [
+    "Afghan",
+    "Albanian",
+    "Algerian",
+    "American",
+    "Andorran",
+    "Angolan",
+    "Antiguans",
+    "Argentinean",
+    "Armenian",
+    "Australian",
+    "Austrian",
+    "Azerbaijani",
+    "Bahamian",
+    "Bahraini",
+    "Bangladeshi",
+    "Barbadian",
+    "Barbudans",
+    "Batswana",
+    "Belarusian",
+    "Belgian",
+    "Belizean",
+    "Beninese",
+    "Bhutanese",
+    "Bolivian",
+    "Bosnian",
+    "Brazilian",
+    "British",
+    "Bruneian",
+    "Bulgarian",
+    "Burkinabe",
+    "Burmese",
+    "Burundian",
+    "Cambodian",
+    "Cameroonian",
+    "Canadian",
+    "Cape Verdean",
+    "Central African",
+    "Chadian",
+    "Chilean",
+    "Chinese",
+    "Colombian",
+    "Comoran",
+    "Congolese",
+    "Costa Rican",
+    "Croatian",
+    "Cuban",
+    "Cypriot",
+    "Czech",
+    "Danish",
+    "Djibouti",
+    "Dominican",
+    "Dutch",
+    "East Timorese",
+    "Ecuadorean",
+    "Egyptian",
+    "Emirian",
+    "Equatorial Guinean",
+    "Eritrean",
+    "Estonian",
+    "Ethiopian",
+    "Fijian",
+    "Filipino",
+    "Finnish",
+    "French",
+    "Gabonese",
+    "Gambian",
+    "Georgian",
+    "German",
+    "Ghanaian",
+    "Greek",
+    "Grenadian",
+    "Guatemalan",
+    "Guinea-Bissauan",
+    "Guinean",
+    "Guyanese",
+    "Haitian",
+    "Herzegovinian",
+    "Honduran",
+    "Hungarian",
+    "I-Kiribati",
+    "Icelander",
+    "Indian",
+    "Indonesian",
+    "Iranian",
+    "Iraqi",
+    "Irish",
+    "Israeli",
+    "Italian",
+    "Ivorian",
+    "Jamaican",
+    "Japanese",
+    "Jordanian",
+    "Kazakhstani",
+    "Kenyan",
+    "Kittian and Nevisian",
+    "Kuwaiti",
+    "Kyrgyz",
+    "Laotian",
+    "Latvian",
+    "Lebanese",
+    "Liberian",
+    "Libyan",
+    "Liechtensteiner",
+    "Lithuanian",
+    "Luxembourger",
+    "Macedonian",
+    "Malagasy",
+    "Malawian",
+    "Malaysian",
+    "Maldivan",
+    "Malian",
+    "Maltese",
+    "Marshallese",
+    "Mauritanian",
+    "Mauritian",
+    "Mexican",
+    "Micronesian",
+    "Moldovan",
+    "Monacan",
+    "Mongolian",
+    "Moroccan",
+    "Mosotho",
+    "Motswana",
+    "Mozambican",
+    "Namibian",
+    "Nauruan",
+    "Nepalese",
+    "New Zealander",
+    "Nicaraguan",
+    "Nigerian",
+    "Nigerien",
+    "North Korean",
+    "Northern Irish",
+    "Norwegian",
+    "Omani",
+    "Pakistani",
+    "Palauan",
+    "Panamanian",
+    "Papua New Guinean",
+    "Paraguayan",
+    "Peruvian",
+    "Polish",
+    "Portuguese",
+    "Qatari",
+    "Romanian",
+    "Russian",
+    "Rwandan",
+    "Saint Lucian",
+    "Salvadoran",
+    "Samoan",
+    "San Marinese",
+    "Sao Tomean",
+    "Saudi",
+    "Scottish",
+    "Senegalese",
+    "Serbian",
+    "Seychellois",
+    "Sierra Leonean",
+    "Singaporean",
+    "Slovakian",
+    "Slovenian",
+    "Solomon Islander",
+    "Somali",
+    "South African",
+    "South Korean",
+    "Spanish",
+    "Sri Lankan",
+    "Sudanese",
+    "Surinamer",
+    "Swazi",
+    "Swedish",
+    "Swiss",
+    "Syrian",
+    "Taiwanese",
+    "Tajik",
+    "Tanzanian",
+    "Thai",
+    "Togolese",
+    "Tongan",
+    "Trinidadian or Tobagonian",
+    "Tunisian",
+    "Turkish",
+    "Tuvaluan",
+    "Ugandan",
+    "Ukrainian",
+    "Uruguayan",
+    "Uzbekistani",
+    "Venezuelan",
+    "Vietnamese",
+    "Welsh",
+    "Yemenite",
+    "Zambian",
+    "Zimbabwean",
+  ];
+
+  // Populate the nationality dropdown
+  nationalities.forEach((nationality) => {
+    const option = document.createElement("option");
+    option.value = nationality;
+    option.text = nationality;
+    nationalitySelect.appendChild(option);
+  });
+
+  // Add event listener for "change" event
+  nationalitySelect.addEventListener("change", function () {
+    const selectedNationality = nationalitySelect.value;
+    nationalitySelectionEl.innerHTML = `Selected nationality: ${selectedNationality}`;
+    console.log("Selected nationality:", selectedNationality);
+  });
+
+
+//const submitButtonEl = document.getElementById("submit-btn");
+
 // Ensure DOM content is fully loaded before accessing elements
 // document.addEventListener("DOMContentLoaded", function () {
 //   // Function to handle submit button click

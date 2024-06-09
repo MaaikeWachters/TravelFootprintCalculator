@@ -17,12 +17,38 @@
 
       <div class="gender-input">
       <label for="gender">What is your gender?</label>
-      <select id="gender" name="gender" onchange="handleChange()" >
+      <select id="gender" name="gender" >
+        <option value="" disabled selected>Select your gender</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
           <option value="non-binary">Non-binary</option>
           <option value="no-answer">Don't want to say.</option>
       </select>
+      <div id="gender-selection"></div>
+
+      <div class="age-input">
+        <label for="age">What is your age?</label>
+        <select id="age" name="age" >
+          <option value="" disabled selected>Select your age group</option>
+            <option value="0-18">0-18 years old</option>
+            <option value="19-20">19-29 years old</option>
+            <option value="30-39">30-39 years old</option>
+            <option value="40-49">40-49 years old</option>
+            <option value="50-59">50-59 years old</option>
+            <option value="60-69">60-69 years old</option>
+            <option value="70-plus">70+ years old</option>
+        </select>
+        <div id="age-selection"></div>
+
+        <div class="nationality-input">
+          <label for="nationality">What is your nationality?</label>
+          <select id="nationality" name="nationality">
+              <option value="" disabled selected>Select your nationality</option>
+              <!-- Nationalities will be populated here by JavaScript -->
+          </select>
+          <div id="nationality-selection"></div>
+      </div>
+
       <!-- <button id="submit-btn">Submit</button> -->
   </div>
 
