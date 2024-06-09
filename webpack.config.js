@@ -27,5 +27,5 @@ module.exports = {
     compress: true,
     port: 9000,
   },
-  mode: "development", // Set the mode to 'development' for development builds
+  mode: "production", // Set the mode to 'development' for development builds
 };
