@@ -15,45 +15,112 @@
     </p>
     <p>Answers are anonymous.</p>
 
-      <div class="gender-input">
+    <div class="gender-input">
       <label for="gender">What is your gender?</label>
-      <select id="gender" name="gender" >
+      <select id="gender" name="gender">
         <option value="" disabled selected>Select your gender</option>
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-          <option value="non-binary">Non-binary</option>
-          <option value="no-answer">Don't want to say.</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="non-binary">Non-binary</option>
+        <option value="no-answer">Don't want to say.</option>
       </select>
       <div id="gender-selection"></div>
 
       <div class="age-input">
         <label for="age">What is your age?</label>
-        <select id="age" name="age" >
+        <select id="age" name="age">
           <option value="" disabled selected>Select your age group</option>
-            <option value="0-18">0-18 years old</option>
-            <option value="19-20">19-29 years old</option>
-            <option value="30-39">30-39 years old</option>
-            <option value="40-49">40-49 years old</option>
-            <option value="50-59">50-59 years old</option>
-            <option value="60-69">60-69 years old</option>
-            <option value="70-plus">70+ years old</option>
+          <option value="0-18">0-18 years old</option>
+          <option value="19-20">19-29 years old</option>
+          <option value="30-39">30-39 years old</option>
+          <option value="40-49">40-49 years old</option>
+          <option value="50-59">50-59 years old</option>
+          <option value="60-69">60-69 years old</option>
+          <option value="70-plus">70+ years old</option>
         </select>
         <div id="age-selection"></div>
 
         <div class="nationality-input">
           <label for="nationality">What is your nationality?</label>
           <select id="nationality" name="nationality">
-              <option value="" disabled selected>Select your nationality</option>
-              <!-- Nationalities will be populated here by JavaScript -->
+            <option value="" disabled selected>Select your nationality</option>
+            <!-- Nationalities will be populated here by JavaScript -->
           </select>
           <div id="nationality-selection"></div>
+        </div>
+
+        <div>
+          <div class="startingpoint-input">
+            <label for="startinpoint">Choose your starting city</label>
+            <select id="startingpoint" name="startingpoint">
+              <option value="" disabled selected>Starting city</option>
+              <option value="amsterdam">Amsterdam, Netherlands</option>
+              <option value="london">London, UK</option>
+              <option value="berlin">Berlin, Germany</option>
+              <option value="paris">Paris, France</option>
+              <option value="rome">Rome, Italy</option>
+              <option value="vienna">Vienna, Austria</option>
+              <option value="barcelona">Barcelona, Spain</option>
+              <option value="copenhagen">Copenhagen, Denmark</option>
+              <option value="prague">Prague, Czech Republic</option>
+              <option value="warsaw">Warsaw, Poland</option>
+            </select>
+
+            <div id="startingpoint-selection"></div>
+          </div>
+          <div class="destination-input">
+            <label for="destination">Choose your destination</label>
+            <select id="destination" name="destination">
+              <option value="" disabled selected>Destination</option>
+              <option value="amsterdam">Amsterdam, Netherlands</option>
+              <option value="london">London, UK</option>
+              <option value="berlin">Berlin, Germany</option>
+              <option value="paris">Paris, France</option>
+              <option value="rome">Rome, Italy</option>
+              <option value="vienna">Vienna, Austria</option>
+              <option value="barcelona">Barcelona, Spain</option>
+              <option value="copenhagen">Copenhagen, Denmark</option>
+              <option value="prague">Prague, Czech Republic</option>
+              <option value="warsaw">Warsaw, Poland</option>
+            </select>
+            <div id="destination-selection"></div>
+          </div>
+        </div>
+
+        <div id="transport-mode-selection"></div>
+        <div class="transport-mode-input">
+          <label for="transport-mode">Choose your mode of transport</label>
+          <select id="transport-mode" name="transport-mode">
+            <option value="" disabled selected>Mode of transport</option>
+            <option value="car">By car</option>
+            <option value="train">By train</option>
+            <option value="plane">By plane</option>
+          </select>
+          <div id="transport-mode-selection"></div>
+        </div>
       </div>
 
-      <!-- <button id="submit-btn">Submit</button> -->
+    </div>
+
+    <button id="calculate-emissions-btn">Calculate emissions</button>
+
+<!-- <div class="emissions-selection">
+  <div class="emissions-input">
+    <label for="emissions">See your emissions</label>
+    <select id="emissions" name="emissions">
+     <option value="car-emissions">Car: </option> 
+     <option value="train-emissions">Train: </option>
+     <option value="plane-emissions">Plane: </option>
+    </select>
+
+    <div id="emissions-selection"></div> -->
+
+    Accept emissions
   </div>
+</div>
 
 
-<!-- 
+    <!-- 
  
 
 
@@ -88,9 +155,11 @@
 
       <button type="button" onclick="submitForm()">Submit</button> -->
 
-      <!-- only show when the form is successfully submitted. -->
-      <p>Thank you for your submission!</p>
-    </form>
-    <script  type="module" src="dist/bundle.js"></script>
+
+      <!-- <button id="submit-btn">Submit</button> -->
+    <!-- only show when the form is successfully submitted. -->
+    <p>Thank you for your submission!</p>
+
+    <script type="module" src="dist/bundle.js"></script>
   </body>
 </html>

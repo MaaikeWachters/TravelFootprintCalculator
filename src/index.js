@@ -128,7 +128,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Get the select element
+// Get the select elements
 const genderSelect = document.getElementById("gender");
 const genderSelectionEl = document.getElementById("gender-selection");
 
@@ -137,6 +137,28 @@ const ageSelectionEl = document.getElementById("age-selection");
 
 const nationalitySelect = document.getElementById("nationality");
 const nationalitySelectionEl = document.getElementById("nationality-selection");
+
+const startingpointSelect = document.getElementById("startingpoint");
+const startingpointSelectionEl = document.getElementById(
+  "startingpoint-selection"
+);
+
+const destinationSelect = document.getElementById("destination");
+const destinationSelectionEl = document.getElementById("destination-selection");
+
+const transportmodeSelect = document.getElementById("transport-mode");
+const transportmodeSelectionEl = document.getElementById(
+  "transport-mode-selection"
+);
+
+const calculateEmissionsBtn = document.getElementById("calculate-emissions-btn");
+
+
+// set calculation variables
+let startingPoint = "";
+let destination = "";
+let modeOfTransport = "";
+let calculatedDistance = 0;
 
 // Select gender
 genderSelect.addEventListener("change", function () {
@@ -154,229 +176,267 @@ ageSelect.addEventListener("change", function () {
 
 // Select nationality
 
-  const nationalities = [
-    "Afghan",
-    "Albanian",
-    "Algerian",
-    "American",
-    "Andorran",
-    "Angolan",
-    "Antiguans",
-    "Argentinean",
-    "Armenian",
-    "Australian",
-    "Austrian",
-    "Azerbaijani",
-    "Bahamian",
-    "Bahraini",
-    "Bangladeshi",
-    "Barbadian",
-    "Barbudans",
-    "Batswana",
-    "Belarusian",
-    "Belgian",
-    "Belizean",
-    "Beninese",
-    "Bhutanese",
-    "Bolivian",
-    "Bosnian",
-    "Brazilian",
-    "British",
-    "Bruneian",
-    "Bulgarian",
-    "Burkinabe",
-    "Burmese",
-    "Burundian",
-    "Cambodian",
-    "Cameroonian",
-    "Canadian",
-    "Cape Verdean",
-    "Central African",
-    "Chadian",
-    "Chilean",
-    "Chinese",
-    "Colombian",
-    "Comoran",
-    "Congolese",
-    "Costa Rican",
-    "Croatian",
-    "Cuban",
-    "Cypriot",
-    "Czech",
-    "Danish",
-    "Djibouti",
-    "Dominican",
-    "Dutch",
-    "East Timorese",
-    "Ecuadorean",
-    "Egyptian",
-    "Emirian",
-    "Equatorial Guinean",
-    "Eritrean",
-    "Estonian",
-    "Ethiopian",
-    "Fijian",
-    "Filipino",
-    "Finnish",
-    "French",
-    "Gabonese",
-    "Gambian",
-    "Georgian",
-    "German",
-    "Ghanaian",
-    "Greek",
-    "Grenadian",
-    "Guatemalan",
-    "Guinea-Bissauan",
-    "Guinean",
-    "Guyanese",
-    "Haitian",
-    "Herzegovinian",
-    "Honduran",
-    "Hungarian",
-    "I-Kiribati",
-    "Icelander",
-    "Indian",
-    "Indonesian",
-    "Iranian",
-    "Iraqi",
-    "Irish",
-    "Israeli",
-    "Italian",
-    "Ivorian",
-    "Jamaican",
-    "Japanese",
-    "Jordanian",
-    "Kazakhstani",
-    "Kenyan",
-    "Kittian and Nevisian",
-    "Kuwaiti",
-    "Kyrgyz",
-    "Laotian",
-    "Latvian",
-    "Lebanese",
-    "Liberian",
-    "Libyan",
-    "Liechtensteiner",
-    "Lithuanian",
-    "Luxembourger",
-    "Macedonian",
-    "Malagasy",
-    "Malawian",
-    "Malaysian",
-    "Maldivan",
-    "Malian",
-    "Maltese",
-    "Marshallese",
-    "Mauritanian",
-    "Mauritian",
-    "Mexican",
-    "Micronesian",
-    "Moldovan",
-    "Monacan",
-    "Mongolian",
-    "Moroccan",
-    "Mosotho",
-    "Motswana",
-    "Mozambican",
-    "Namibian",
-    "Nauruan",
-    "Nepalese",
-    "New Zealander",
-    "Nicaraguan",
-    "Nigerian",
-    "Nigerien",
-    "North Korean",
-    "Northern Irish",
-    "Norwegian",
-    "Omani",
-    "Pakistani",
-    "Palauan",
-    "Panamanian",
-    "Papua New Guinean",
-    "Paraguayan",
-    "Peruvian",
-    "Polish",
-    "Portuguese",
-    "Qatari",
-    "Romanian",
-    "Russian",
-    "Rwandan",
-    "Saint Lucian",
-    "Salvadoran",
-    "Samoan",
-    "San Marinese",
-    "Sao Tomean",
-    "Saudi",
-    "Scottish",
-    "Senegalese",
-    "Serbian",
-    "Seychellois",
-    "Sierra Leonean",
-    "Singaporean",
-    "Slovakian",
-    "Slovenian",
-    "Solomon Islander",
-    "Somali",
-    "South African",
-    "South Korean",
-    "Spanish",
-    "Sri Lankan",
-    "Sudanese",
-    "Surinamer",
-    "Swazi",
-    "Swedish",
-    "Swiss",
-    "Syrian",
-    "Taiwanese",
-    "Tajik",
-    "Tanzanian",
-    "Thai",
-    "Togolese",
-    "Tongan",
-    "Trinidadian or Tobagonian",
-    "Tunisian",
-    "Turkish",
-    "Tuvaluan",
-    "Ugandan",
-    "Ukrainian",
-    "Uruguayan",
-    "Uzbekistani",
-    "Venezuelan",
-    "Vietnamese",
-    "Welsh",
-    "Yemenite",
-    "Zambian",
-    "Zimbabwean",
-  ];
+const nationalities = [
+  "Afghan",
+  "Albanian",
+  "Algerian",
+  "American",
+  "Andorran",
+  "Angolan",
+  "Antiguans",
+  "Argentinean",
+  "Armenian",
+  "Australian",
+  "Austrian",
+  "Azerbaijani",
+  "Bahamian",
+  "Bahraini",
+  "Bangladeshi",
+  "Barbadian",
+  "Barbudans",
+  "Batswana",
+  "Belarusian",
+  "Belgian",
+  "Belizean",
+  "Beninese",
+  "Bhutanese",
+  "Bolivian",
+  "Bosnian",
+  "Brazilian",
+  "British",
+  "Bruneian",
+  "Bulgarian",
+  "Burkinabe",
+  "Burmese",
+  "Burundian",
+  "Cambodian",
+  "Cameroonian",
+  "Canadian",
+  "Cape Verdean",
+  "Central African",
+  "Chadian",
+  "Chilean",
+  "Chinese",
+  "Colombian",
+  "Comoran",
+  "Congolese",
+  "Costa Rican",
+  "Croatian",
+  "Cuban",
+  "Cypriot",
+  "Czech",
+  "Danish",
+  "Djibouti",
+  "Dominican",
+  "Dutch",
+  "East Timorese",
+  "Ecuadorean",
+  "Egyptian",
+  "Emirian",
+  "Equatorial Guinean",
+  "Eritrean",
+  "Estonian",
+  "Ethiopian",
+  "Fijian",
+  "Filipino",
+  "Finnish",
+  "French",
+  "Gabonese",
+  "Gambian",
+  "Georgian",
+  "German",
+  "Ghanaian",
+  "Greek",
+  "Grenadian",
+  "Guatemalan",
+  "Guinea-Bissauan",
+  "Guinean",
+  "Guyanese",
+  "Haitian",
+  "Herzegovinian",
+  "Honduran",
+  "Hungarian",
+  "I-Kiribati",
+  "Icelander",
+  "Indian",
+  "Indonesian",
+  "Iranian",
+  "Iraqi",
+  "Irish",
+  "Israeli",
+  "Italian",
+  "Ivorian",
+  "Jamaican",
+  "Japanese",
+  "Jordanian",
+  "Kazakhstani",
+  "Kenyan",
+  "Kittian and Nevisian",
+  "Kuwaiti",
+  "Kyrgyz",
+  "Laotian",
+  "Latvian",
+  "Lebanese",
+  "Liberian",
+  "Libyan",
+  "Liechtensteiner",
+  "Lithuanian",
+  "Luxembourger",
+  "Macedonian",
+  "Malagasy",
+  "Malawian",
+  "Malaysian",
+  "Maldivan",
+  "Malian",
+  "Maltese",
+  "Marshallese",
+  "Mauritanian",
+  "Mauritian",
+  "Mexican",
+  "Micronesian",
+  "Moldovan",
+  "Monacan",
+  "Mongolian",
+  "Moroccan",
+  "Mosotho",
+  "Motswana",
+  "Mozambican",
+  "Namibian",
+  "Nauruan",
+  "Nepalese",
+  "New Zealander",
+  "Nicaraguan",
+  "Nigerian",
+  "Nigerien",
+  "North Korean",
+  "Northern Irish",
+  "Norwegian",
+  "Omani",
+  "Pakistani",
+  "Palauan",
+  "Panamanian",
+  "Papua New Guinean",
+  "Paraguayan",
+  "Peruvian",
+  "Polish",
+  "Portuguese",
+  "Qatari",
+  "Romanian",
+  "Russian",
+  "Rwandan",
+  "Saint Lucian",
+  "Salvadoran",
+  "Samoan",
+  "San Marinese",
+  "Sao Tomean",
+  "Saudi",
+  "Scottish",
+  "Senegalese",
+  "Serbian",
+  "Seychellois",
+  "Sierra Leonean",
+  "Singaporean",
+  "Slovakian",
+  "Slovenian",
+  "Solomon Islander",
+  "Somali",
+  "South African",
+  "South Korean",
+  "Spanish",
+  "Sri Lankan",
+  "Sudanese",
+  "Surinamer",
+  "Swazi",
+  "Swedish",
+  "Swiss",
+  "Syrian",
+  "Taiwanese",
+  "Tajik",
+  "Tanzanian",
+  "Thai",
+  "Togolese",
+  "Tongan",
+  "Trinidadian or Tobagonian",
+  "Tunisian",
+  "Turkish",
+  "Tuvaluan",
+  "Ugandan",
+  "Ukrainian",
+  "Uruguayan",
+  "Uzbekistani",
+  "Venezuelan",
+  "Vietnamese",
+  "Welsh",
+  "Yemenite",
+  "Zambian",
+  "Zimbabwean",
+];
 
-  // Populate the nationality dropdown
-  nationalities.forEach((nationality) => {
-    const option = document.createElement("option");
-    option.value = nationality;
-    option.text = nationality;
-    nationalitySelect.appendChild(option);
-  });
+// Populate the nationality dropdown
+nationalities.forEach((nationality) => {
+  const option = document.createElement("option");
+  option.value = nationality;
+  option.text = nationality;
+  nationalitySelect.appendChild(option);
+});
 
-  // Add event listener for "change" event
-  nationalitySelect.addEventListener("change", function () {
-    const selectedNationality = nationalitySelect.value;
-    nationalitySelectionEl.innerHTML = `Selected nationality: ${selectedNationality}`;
-    console.log("Selected nationality:", selectedNationality);
-  });
+// Choose nationality
+nationalitySelect.addEventListener("change", function () {
+  const selectedNationality = nationalitySelect.value;
+  nationalitySelectionEl.innerHTML = `Selected nationality: ${selectedNationality}`;
+  console.log("Selected nationality:", selectedNationality);
+});
+
+// Choose starting point
+startingpointSelect.addEventListener("change", function () {
+  const selectedStartingpoint = startingpointSelect.value;
+  startingpointSelectionEl.innerHTML = `Selected startingpoint: ${selectedStartingpoint}`;
+  console.log("Selected startingpoint:", selectedStartingpoint);
+  startingPoint = selectedStartingpoint;
+});
+
+// Choose destination
+destinationSelect.addEventListener("change", function () {
+  const selectedDestination = destinationSelect.value;
+  destinationSelectionEl.innerHTML = `Selected destination: ${selectedDestination}`;
+  console.log("Selected destination:", selectedDestination);
+  destination = selectedDestination;
+});
+
+// Choose mode of transport
+transportmodeSelect.addEventListener("change", function () {
+  const selectedTransportmode = transportmodeSelect.value;
+  transportmodeSelectionEl.innerHTML = `Selected mode of transport: ${selectedTransportmode}`;
+  console.log("Selected mode of transport:", selectedTransportmode);
+  modeOfTransport = selectedTransportmode;
+});
+
+console.log(startingPoint);
 
 
-//const submitButtonEl = document.getElementById("submit-btn");
 
-// Ensure DOM content is fully loaded before accessing elements
-// document.addEventListener("DOMContentLoaded", function () {
-//   // Function to handle submit button click
-//   function postButtonPressed() {
-//     console.log("Submit button pressed");
 
-//     // Get the selected gender value
-//     const selectedGender = genderEl.value;
-//     console.log(selectedGender);
+calculateEmissionsBtn.addEventListener("click", function () {
+  const key = `${startingPoint}-${destination}-${modeOfTransport}`;
+  console.log(key);
+  calculatedDistance = travelDistances[key];
+  console.log(calculatedDistance);
+  calculateEmissions();
+}
+
+)
+
+
+
+function calculateEmissions() {
+  if (selectedTransportmode === "car") {
+    return calculatedDistance * 0, 384551;
+  } else if (selectedTransportmode === "train") {
+    return calculatedDistance * 0, 115043499999999;
+  } else {
+    return calculatedDistance * 0, 69187;
+  }
+}
 
 //     // Check if a gender value is selected
 //     if (selectedGender) {
@@ -386,8 +446,6 @@ ageSelect.addEventListener("change", function () {
 //       console.log("No gender selected.");
 //     }
 //   }
-
-//   submitButtonEl.addEventListener("click", postButtonPressed);
 
 //   // Function to add user's gender to the database
 //   async function addUserToDB(gender) {
@@ -402,11 +460,6 @@ ageSelect.addEventListener("change", function () {
 //     }
 //   }
 // });
-
-// function getDistance(startingpoint, endingpoint, modeOfTransport) {
-//   const key = `${startingpoint.toLowerCase()}-${endingpoint.toLowerCase()}`;
-//   return travelDistances[key] || "Distance not found";
-// }
 
 // // Example usage:
 // const distance = getDistance("amsterdam", "rome");
@@ -442,14 +495,6 @@ ageSelect.addEventListener("change", function () {
 //   }
 // }
 
-// // Add event listener for DOMContentLoaded to setup the form
-// document.addEventListener("DOMContentLoaded", (event) => {
-//   submitForm();
-// });
-
-// Export the submitForm function
-//window.submitForm = submitForm;
-
 // function calculateDistance(startingpoint, endingpoint) {}
 
 // function calculateOffset(emissions) {
@@ -461,15 +506,6 @@ ageSelect.addEventListener("change", function () {
 
 //   return offsetOptions;
 // }
-
-// function calculateEmissions(userChoice, distance) {
-//   if (userChoice === "car") {
-//     return distance * 0, 384551;
-//   } else if (userChoice === "train") {
-//     return distance * 0, 115043499999999;
-//   } else {
-//     return distance * 0, 69187;
-//   }
 
 //   function renderEmissions() {
 //     renderOffsetOptions();
