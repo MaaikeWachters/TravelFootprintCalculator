@@ -121,3 +121,4 @@ async function addUserToDB(postBody) {
 //     offsetEl.innerHTML = `<li>${offsetOptions[i]}</li>`;
 //   }
 // }
+export { app, db, collection, addDoc, ref, set };
