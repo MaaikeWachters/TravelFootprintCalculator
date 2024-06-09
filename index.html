@@ -15,25 +15,20 @@
     </p>
     <p>Answers are anonymous.</p>
 
-
-    <div class="post-section">
-      <textarea id="post-input" placeholder="Write down how you're feeling..."></textarea>
-      <button id="post-btn" class="primary-btn">Post</button>
+      <div class="gender-input">
+      <label for="gender">What is your gender?</label>
+      <select id="gender" name="gender" onchange="handleChange()" >
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="non-binary">Non-binary</option>
+          <option value="no-answer">Don't want to say.</option>
+      </select>
+      <!-- <button id="submit-btn">Submit</button> -->
   </div>
 
 
 <!-- 
-    <form id="userInput">
-        <label for="gender">What is your gender?</label>
-        <select id="gender" name="gender">
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="non-binary">Non-binary</option>
-            <option value="no-answer">Don't want to say.</option>
-        </select>
-        <button type="button" onclick="submitForm()">Submit</button>
-   
-    </form>
+ 
 
 
       <label>What is your age?</label>
