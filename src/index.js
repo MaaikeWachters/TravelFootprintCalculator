@@ -614,35 +614,45 @@ calculateEmissionsBtn.addEventListener("click", function () {
 
 function renderEmissions() {
   transportmodeSelect.innerHTML = `
-    <option value="" disabled selected>choose mode of transport</option>
-    <option value="car">Car: ${calculatedEmissions_car}</option>
-    <option value="train">Train: ${calculatedEmissions_train}</option>
-    <option value="plane">Plane: ${calculatedEmissions_plane}</option>
-  `;
+  <input type="radio" id="car" name="transport" value="car">
+<label for="car">Car: ${calculatedEmissions_car}</label><br>
+<input type="radio" id="train" name="transport" value="train">
+<label for="train">Train</label><br>
+<input type="radio" id="plane" name="transport" value="plane">
+<label for="plane">Plane</label>
+`;
 }
 
 function chooseModeOfTransport() {
-  transportmodeSelect.addEventListener("change", function () {
-    selectedTransportmode = transportmodeSelect.value;
-    transportmodeSelectionEl.innerHTML = `Selected mode of transport: ${selectedTransportmode}`;
-    console.log("Selected mode of transport:", selectedTransportmode);
-    if (selectedTransportmode === "car") {
-      chosenEmissionsForModeOfTransport = calculatedEmissions_car;
-      renderTotals();
-      renderEmissionsForChosenTransport();
-      return chosenEmissionsForModeOfTransport;
-    } else if (selectedTransportmode === "train") {
-      chosenEmissionsForModeOfTransport = calculatedEmissions_train;
-      renderTotals();
-      renderEmissionsForChosenTransport();
-      return chosenEmissionsForModeOfTransport;
-    } else {
-      chosenEmissionsForModeOfTransport = calculatedEmissions_plane;
-      renderTotals();
-      renderEmissionsForChosenTransport();
-      return chosenEmissionsForModeOfTransport;
-    }
-  });
+  document
+    .querySelectorAll('input[type="radio"][name="transport"]')
+    .forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        // Inside the event listener, get the value of the selected radio button
+        selectedTransportmode = this.value; // 'this' refers to the radio button that was changed
+
+        transportmodeSelectionEl.innerHTML = `Selected mode of transport: ${selectedTransportmode}`;
+        console.log("Selected mode of transport:", selectedTransportmode);
+
+        // You can proceed with your logic here
+        if (selectedTransportmode === "car") {
+          chosenEmissionsForModeOfTransport = calculatedEmissions_car;
+          renderTotals();
+          renderEmissionsForChosenTransport();
+          return chosenEmissionsForModeOfTransport;
+        } else if (selectedTransportmode === "train") {
+          chosenEmissionsForModeOfTransport = calculatedEmissions_train;
+          renderTotals();
+          renderEmissionsForChosenTransport();
+          return chosenEmissionsForModeOfTransport;
+        } else {
+          chosenEmissionsForModeOfTransport = calculatedEmissions_plane;
+          renderTotals();
+          renderEmissionsForChosenTransport();
+          return chosenEmissionsForModeOfTransport;
+        }
+        });
+    });
 }
 
 function renderTotals() {

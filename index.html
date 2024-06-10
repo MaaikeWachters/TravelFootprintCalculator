@@ -7,17 +7,20 @@
     <link href="./src/output.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Travel Footprint Calculator</h1>
-    <p>
+    <h1 class="text-4xl m-4">Travel Footprint Calculator</h1>
+    <p class="m-4">
       Imagine you are planning a holiday from one European city to another. You
       are considering which mode of transport to take. Please fill out the form
       below.
     </p>
-    <p>Answers are anonymous.</p>
+    <p class="mx-4 my-8">Answers are anonymous.</p>
 
-    <div class="gender-input">
+
+    <div class="mx-4 my-8">
+      <h2 class="text-xl font-bold my-6">Personal details</h2>
+    <div class="gender-input grid grid-cols-2">
       <label for="gender" class="">What is your gender?</label>
-      <select id="gender" name="gender" class="select">
+      <select id="gender" name="gender" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <option value="" disabled selected>Select your gender</option>
         <option value="female">Female</option>
         <option value="male">Male</option>
@@ -27,9 +30,9 @@
       <div id="gender-selection"></div>
     </div>
 
-    <div class="age-input">
+    <div class="age-input grid grid-cols-2">
       <label for="age">What is your age?</label>
-      <select id="age" name="age">
+      <select id="age" name="age" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <option value="" disabled selected>Select your age group</option>
         <option value="0-18">0-18 years old</option>
         <option value="19-29">19-29 years old</option>
@@ -42,18 +45,20 @@
       <div id="age-selection"></div>
     </div>
 
-    <div class="nationality-input">
+    <div class="nationality-input grid grid-cols-2">
       <label for="nationality">What is your nationality?</label>
-      <select id="nationality" name="nationality">
+      <select id="nationality" name="nationality" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <option value="" disabled selected>Select your nationality</option>
         <!-- Nationalities will be populated here by JavaScript -->
       </select>
       <div id="nationality-selection"></div>
     </div>
 
-    <div class="startingpoint-input">
+    <h2 class="text-xl font-bold my-6">Travel details</h2>
+
+    <div class="startingpoint-input grid grid-cols-2">
       <label for="startingpoint">Choose your starting city</label>
-      <select id="startingpoint" name="startingpoint">
+      <select id="startingpoint" name="startingpoint" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <option value="" disabled selected>Starting city</option>
         <option value="amsterdam">Amsterdam, Netherlands</option>
         <option value="london">London, UK</option>
@@ -69,9 +74,9 @@
       <div id="startingpoint-selection"></div>
     </div>
 
-    <div class="destination-input">
+    <div class="destination-input grid grid-cols-2">
       <label for="destination">Choose your destination</label>
-      <select id="destination" name="destination">
+      <select id="destination" name="destination" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <option value="" disabled selected>Destination</option>
         <option value="amsterdam">Amsterdam, Netherlands</option>
         <option value="london">London, UK</option>
@@ -87,28 +92,31 @@
       <div id="destination-selection"></div>
     </div>
 
-    <button id="calculate-emissions-btn">Calculate emissions</button>
+  </div>
+
+
+  <div class="my-8 mx-4">
+
+    <h2 class="text-xl font-bold my-6">Calculate emissions</h2>
+    <button class="btn" id="calculate-emissions-btn">Calculate</button>
 
     <div id="transport-mode">
-      <select id="transport-mode-selection"></select>
+      <div id="transport-mode-selection"></div>
     </div>
 
 
-    <h2>Choose your offset</h2>
+    <h2 class="text-xl font-bold my-6">Choose your offset</h2>
 
     <p>Total number of CO2 spent on travel:</p>
     <div id="total-emissions">
      </div>
 
-    
-
     <p>How will you offset your emissions?</p>
-
-
     <div id="offset">
       <select id="offset-selection"></select>
     </div>
     </div>
+  </div>
       <button class="btn" type="button" id="submit-btn">Submit</button>
       <p id="confirmation"></p>
  
