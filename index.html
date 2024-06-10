@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Travel Footprint Calculator</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link href="./src/output.css" rel="stylesheet">
   </head>
   <body>
     <h1>Travel Footprint Calculator</h1>
@@ -16,8 +16,8 @@
     <p>Answers are anonymous.</p>
 
     <div class="gender-input">
-      <label for="gender">What is your gender?</label>
-      <select id="gender" name="gender">
+      <label for="gender" class="">What is your gender?</label>
+      <select id="gender" name="gender" class="select">
         <option value="" disabled selected>Select your gender</option>
         <option value="female">Female</option>
         <option value="male">Male</option>
@@ -109,7 +109,7 @@
       <select id="offset-selection"></select>
     </div>
     </div>
-      <button type="button" id="submit-btn">Submit</button>
+      <button class="btn" type="button" id="submit-btn">Submit</button>
       <p id="confirmation"></p>
  
     <script type="module" src="dist/bundle.js"></script>
