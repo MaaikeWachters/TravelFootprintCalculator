@@ -320,6 +320,9 @@ const calculateEmissionsBtn = document.getElementById(
 
 const totalEmissionsEl = document.getElementById("total-emissions");
 
+const submitBtnEl = document.getElementById("submit-btn");
+const confirmationEl = document.getElementById("confirmation");
+
 // set calculation variables
 let startingPoint = "";
 let destination = "";
@@ -333,20 +336,22 @@ let calculatedEmissions_plane = 0;
 let chosenEmissionsForModeOfTransport = 0;
 let selectedTransportmode = "";
 let selectedOffset = "";
-
-// Database variables
-let chosenOffset = "";
+let selectedGender = "";
+let selectedAge = "";
+let selectedNationality = "";
+let selectedStartingpoint = "";
+let selectedDestination = "";
 
 // Select gender
 genderSelect.addEventListener("change", function () {
-  const selectedGender = genderSelect.value;
+  selectedGender = genderSelect.value;
   genderSelectionEl.innerHTML = `selected: ${selectedGender}`;
   console.log("Selected gender:", selectedGender);
 });
 
 // Select age
 ageSelect.addEventListener("change", function () {
-  const selectedAge = ageSelect.value;
+  selectedAge = ageSelect.value;
   ageSelectionEl.innerHTML = `selected: ${selectedAge}`;
   console.log("Selected age:", selectedAge);
 });
@@ -559,14 +564,14 @@ nationalities.forEach((nationality) => {
 
 // Choose nationality
 nationalitySelect.addEventListener("change", function () {
-  const selectedNationality = nationalitySelect.value;
+  selectedNationality = nationalitySelect.value;
   nationalitySelectionEl.innerHTML = `Selected nationality: ${selectedNationality}`;
   console.log("Selected nationality:", selectedNationality);
 });
 
 // Choose starting point
 startingpointSelect.addEventListener("change", function () {
-  const selectedStartingpoint = startingpointSelect.value;
+  selectedStartingpoint = startingpointSelect.value;
   startingpointSelectionEl.innerHTML = `Selected startingpoint: ${selectedStartingpoint}`;
   console.log("Selected startingpoint:", selectedStartingpoint);
   startingPoint = selectedStartingpoint;
@@ -574,7 +579,7 @@ startingpointSelect.addEventListener("change", function () {
 
 // Choose destination
 destinationSelect.addEventListener("change", function () {
-  const selectedDestination = destinationSelect.value;
+  selectedDestination = destinationSelect.value;
   destinationSelectionEl.innerHTML = `Selected destination: ${selectedDestination}`;
   console.log("Selected destination:", selectedDestination);
   destination = selectedDestination;
@@ -621,13 +626,12 @@ function chooseModeOfTransport() {
     selectedTransportmode = transportmodeSelect.value;
     transportmodeSelectionEl.innerHTML = `Selected mode of transport: ${selectedTransportmode}`;
     console.log("Selected mode of transport:", selectedTransportmode);
-    modeOfTransport = selectedTransportmode;
-    if (modeOfTransport === "car") {
+    if (selectedTransportmode === "car") {
       chosenEmissionsForModeOfTransport = calculatedEmissions_car;
       renderTotals();
       renderEmissionsForChosenTransport();
       return chosenEmissionsForModeOfTransport;
-    } else if (modeOfTransport === "train") {
+    } else if (selectedTransportmode === "train") {
       chosenEmissionsForModeOfTransport = calculatedEmissions_train;
       renderTotals();
       renderEmissionsForChosenTransport();
@@ -649,11 +653,15 @@ function renderTotals() {
 let noBeef = 0;
 let cycling = 0;
 let plasticBags = 0;
+let secondhandClothing = 0;
+let plantTrees = 0;
 
 function calculateOffset() {
-  noBeef = chosenEmissionsForModeOfTransport / 3;
-  cycling = chosenEmissionsForModeOfTransport / 5;
-  plasticBags = chosenEmissionsForModeOfTransport / 10;
+  noBeef = chosenEmissionsForModeOfTransport / 27;
+  cycling = chosenEmissionsForModeOfTransport / 0.15;
+  plasticBags = chosenEmissionsForModeOfTransport / 0.03549;
+  secondhandClothing = chosenEmissionsForModeOfTransport / 25;
+  plantTrees = chosenEmissionsForModeOfTransport / 22.68;
 }
 
 function renderEmissionsForChosenTransport() {
@@ -663,6 +671,8 @@ function renderEmissionsForChosenTransport() {
   <option value="nobeef">No beef: ${noBeef}</option>
   <option value="cycling">Cycling: ${cycling}</option>
   <option value="plastic-bags">Plastic bags: ${plasticBags}</option>
+  <option value="secondhand-clothing">Secondhand clothing: ${secondhandClothing}</option>
+  <option value="plant-trees">Plant trees: ${plantTrees};
 `;
   chooseOffset();
 }
@@ -672,58 +682,40 @@ function chooseOffset() {
     selectedOffset = offsetSelect.value;
     offsetSelectionEl.innerHTML = `Selected offset: ${selectedOffset}`;
     console.log("Selected offset:", selectedOffset);
-    chosenOffset = selectedOffset;
   });
 }
-//     // Check if a gender value is selected
-//     if (selectedGender) {
-//       // If a gender value is selected, add it to the database
-//       addUserToDB(selectedGender);
-//     } else {
-//       console.log("No gender selected.");
-//     }
-//   }
 
-//   // Function to add user's gender to the database
-//   async function addUserToDB(gender) {
-//     try {
-//       // Add document to Firestore collection 'users'
-//       const docRef = await addDoc(collection(db, "users"), {
-//         gender: gender,
-//       });
-//       console.log("Document written with ID: ", docRef.id);
-//     } catch (error) {
-//       console.error("Error adding document: ", error.message);
-//     }
-//   }
-// });
+function renderConfirmation() {
+  confirmationEl.innerHTML = `Thank you for submitting your answers!`;
+}
 
-// // Function to handle form submission
-// function submitForm() {
-//   const form = document.getElementById("userInput");
-//   const gender = document.getElementById("gender");
+submitBtnEl.addEventListener("click", addUserToDB);
 
-//   if (form) {
-//     form.addEventListener("submit", (event) => {
-//       event.preventDefault();
-//       const selectedValue = gender.value;
-//       console.log("Selected value:", selectedValue);
-
-//       // Generate a user ID
-//       const userId = generateUserId();
-//       console.log("User ID:", userId);
-
-//       set(ref(db, "users/" + userId), {
-//         gender: selectedValue,
-//       })
-//         .then(() => {
-//           console.log("Data saved successfully.");
-//         })
-//         .catch((error) => {
-//           console.error("Error saving data: ", error);
-//         });
-//     });
-//   } else {
-//     console.error("Form not found!");
-//   }
-// }
+async function addUserToDB(gender) {
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      gender: selectedGender,
+      age: selectedAge,
+      nationality: selectedNationality,
+      startingpoint: selectedStartingpoint,
+      destination: selectedDestination,
+      distancetrain: calculatedDistance_train,
+      distancecar: calculatedDistance_car,
+      distanceplane: calculatedDistance_plane,
+      selectedtransportmode: selectedTransportmode,
+      emissionstrain: calculatedEmissions_train,
+      emissionscar: calculatedEmissions_car,
+      emissionsplane: calculatedEmissions_plane,
+      selectedoffset: selectedOffset,
+      nobeefoffset: noBeef,
+      cyclingoffset: cycling,
+      plasticbagsoffset: plasticBags,
+      secondhandclothingoffset: secondhandClothing,
+      planttreesoffset: plantTrees,
+    });
+    console.log("Document written with ID: ", docRef.id);
+    renderConfirmation();
+  } catch (error) {
+    console.error("Error adding document: ", error.message);
+  }
+}
