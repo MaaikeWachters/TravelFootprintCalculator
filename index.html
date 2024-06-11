@@ -11,7 +11,7 @@
     <p class="m-4">
       Imagine you are planning a holiday from one European city to another. You
       are considering which mode of transport to take. Please fill out the form
-      below.
+      below. Please fill it out from top to bottom, and don't forget to click submit at the end. Thank you!
     </p>
     <p class="mx-4 my-8">Answers are anonymous.</p>
 
@@ -98,7 +98,8 @@
   <div class="my-8 mx-4">
 
     <h2 class="text-xl font-bold my-6">Calculate emissions</h2>
-    <button class="btn" id="calculate-emissions-btn">Calculate</button>
+    <p class="my-8">Please click the button below to calculate your emissions.</p>
+    <button class="btn bg-blue-600 text-black" id="calculate-emissions-btn">Calculate</button>
 
     <div id="transport-mode">
       <div id="transport-mode-selection"></div>
@@ -107,17 +108,23 @@
 
     <h2 class="text-xl font-bold my-6">Choose your offset</h2>
 
-    <p>Total number of CO2 spent on travel:</p>
+    <p>Now you can choose how you would like to compensate for the emissions made during your travels.</p>
+
+    <p></p>
+
     <div id="total-emissions">
      </div>
 
-    <p>How will you offset your emissions?</p>
+    <p class="font-bold text-xl mt-8">How will you offset your emissions?</p>
     <div id="offset">
-      <select id="offset-selection"></select>
+      <div id="offset-selection"></div>
     </div>
+
+    <div id="chosen-offset"></div>
     </div>
   </div>
-      <button class="btn" type="button" id="submit-btn">Submit</button>
+  <p class="text-center">
+    <div id="btn-container" class="m-4"></div>
       <p id="confirmation"></p>
  
     <script type="module" src="dist/bundle.js"></script>

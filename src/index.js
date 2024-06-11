@@ -311,8 +311,8 @@ const destinationSelectionEl = document.getElementById("destination-selection");
 const transportmodeSelect = document.getElementById("transport-mode-selection");
 const transportmodeSelectionEl = document.getElementById("transport-mode");
 
-const offsetSelect = document.getElementById("offset-selection");
-const offsetSelectionEl = document.getElementById("offset");
+const offsetSelect = document.getElementById("offset");
+const offsetSelectionEl = document.getElementById("offset-selection");
 
 const calculateEmissionsBtn = document.getElementById(
   "calculate-emissions-btn"
@@ -341,18 +341,41 @@ let selectedAge = "";
 let selectedNationality = "";
 let selectedStartingpoint = "";
 let selectedDestination = "";
+let noBeef = 0;
+let cycling = 0;
+let plasticBags = 0;
+let secondhandClothing = 0;
+let plantTrees = 0;
+
+let showButton = true;
+const btn = document.getElementById("btn-container");
+
+function renderButton() {
+  if (showButton) {
+  
+    if (btn) {
+      btn.innerHTML = `<button class="btn w-80 bg-red-500 text-black" type="button" id="submit-btn">Submit</button>`;
+      const submitBtnEl = document.getElementById("submit-btn");
+      if (submitBtnEl) {
+        submitBtnEl.addEventListener("click", addUserToDB);
+      }
+    } else {
+      console.error("Element with ID 'btn-container' not found.");
+    }
+  }
+}
+
+renderButton();
 
 // Select gender
 genderSelect.addEventListener("change", function () {
   selectedGender = genderSelect.value;
-  genderSelectionEl.innerHTML = `selected: ${selectedGender}`;
   console.log("Selected gender:", selectedGender);
 });
 
 // Select age
 ageSelect.addEventListener("change", function () {
   selectedAge = ageSelect.value;
-  ageSelectionEl.innerHTML = `selected: ${selectedAge}`;
   console.log("Selected age:", selectedAge);
 });
 
@@ -565,14 +588,12 @@ nationalities.forEach((nationality) => {
 // Choose nationality
 nationalitySelect.addEventListener("change", function () {
   selectedNationality = nationalitySelect.value;
-  nationalitySelectionEl.innerHTML = `Selected nationality: ${selectedNationality}`;
   console.log("Selected nationality:", selectedNationality);
 });
 
 // Choose starting point
 startingpointSelect.addEventListener("change", function () {
   selectedStartingpoint = startingpointSelect.value;
-  startingpointSelectionEl.innerHTML = `Selected startingpoint: ${selectedStartingpoint}`;
   console.log("Selected startingpoint:", selectedStartingpoint);
   startingPoint = selectedStartingpoint;
 });
@@ -580,7 +601,6 @@ startingpointSelect.addEventListener("change", function () {
 // Choose destination
 destinationSelect.addEventListener("change", function () {
   selectedDestination = destinationSelect.value;
-  destinationSelectionEl.innerHTML = `Selected destination: ${selectedDestination}`;
   console.log("Selected destination:", selectedDestination);
   destination = selectedDestination;
 });
@@ -613,13 +633,15 @@ calculateEmissionsBtn.addEventListener("click", function () {
 });
 
 function renderEmissions() {
-  transportmodeSelect.innerHTML = `
-  <input type="radio" id="car" name="transport" value="car">
-<label for="car">Car: ${calculatedEmissions_car}</label><br>
-<input type="radio" id="train" name="transport" value="train">
-<label for="train">Train</label><br>
-<input type="radio" id="plane" name="transport" value="plane">
-<label for="plane">Plane</label>
+  transportmodeSelect.innerHTML = `<div class="transport-options-container">
+  <p class="mx-4 mt-4">Please choose which mode of transport you would like to use for your travels.</p>
+  <input type="radio" id="car" name="transport" value="car" class="m-6">
+<label for="car">Car: ${calculatedEmissions_car.toFixed(2)} kg CO2 </label><br>
+<input type="radio" id="train" name="transport" value="train" class="m-6">
+<label for="train">Train: ${calculatedEmissions_train.toFixed(2)} kg CO2</label><br>
+<input type="radio" id="plane" name="transport" value="plane" class="m-6">
+<label for="plane">Plane: ${calculatedEmissions_plane.toFixed(2)} kg CO2</label>
+</div>
 `;
 }
 
@@ -631,7 +653,7 @@ function chooseModeOfTransport() {
         // Inside the event listener, get the value of the selected radio button
         selectedTransportmode = this.value; // 'this' refers to the radio button that was changed
 
-        transportmodeSelectionEl.innerHTML = `Selected mode of transport: ${selectedTransportmode}`;
+        // transportmodeSelectionEl.innerHTML = `<p class="mt-8 font-bold text-lg">Selected mode of transport: ${selectedTransportmode}</p>`;
         console.log("Selected mode of transport:", selectedTransportmode);
 
         // You can proceed with your logic here
@@ -651,20 +673,14 @@ function chooseModeOfTransport() {
           renderEmissionsForChosenTransport();
           return chosenEmissionsForModeOfTransport;
         }
-        });
+      });
     });
 }
 
 function renderTotals() {
-  totalEmissionsEl.innerHTML = `<p>  Chosen mode of transport: ${selectedTransportmode} </p>
-  <p>Total emissions: ${chosenEmissionsForModeOfTransport}</p>`;
+  totalEmissionsEl.innerHTML = `<p class="mt-8">Chosen mode of transport: ${selectedTransportmode} </p>
+  <p>Total emissions: ${chosenEmissionsForModeOfTransport.toFixed(2)}</p>`;
 }
-
-let noBeef = 0;
-let cycling = 0;
-let plasticBags = 0;
-let secondhandClothing = 0;
-let plantTrees = 0;
 
 function calculateOffset() {
   noBeef = chosenEmissionsForModeOfTransport / 27;
@@ -677,29 +693,36 @@ function calculateOffset() {
 function renderEmissionsForChosenTransport() {
   calculateOffset();
   offsetSelect.innerHTML = `
-  <option value="" disabled selected>choose your offset</option>
-  <option value="nobeef">No beef: ${noBeef}</option>
-  <option value="cycling">Cycling: ${cycling}</option>
-  <option value="plastic-bags">Plastic bags: ${plasticBags}</option>
-  <option value="secondhand-clothing">Secondhand clothing: ${secondhandClothing}</option>
-  <option value="plant-trees">Plant trees: ${plantTrees};
+  <input type="radio" id="nobeef" name="offset" value="nobeef" class="m-6">
+  <label for="nobeef">No beef: do not eat ${noBeef.toFixed(2)} kg of beef.</label></br>
+  <input type="radio" id="cycling" name="offset" value="cycling" class="m-6">
+  <label for="cycling">Cycling: cycle ${cycling.toFixed(2)} km instead of driving a car.</label></br>
+  <input type="radio" id="plastic-bags" name="offset" value="plastic-bags" class="m-6">
+  <label for="plastic-bags">Plastic bags: say no to ${plasticBags.toFixed(2)} plastic bags.</label></br>
+  <input type="radio" id="secondhand-clothing" name="offset" value="secondhand-clothing" class="m-6">
+  <label for="secondhand-clothing">Secondhand clothing: buy ${secondhandClothing.toFixed(2)} kg of secondhand clothing instead of new.</label></br>
+  <input type="radio" id="plant-trees" name="offset" value="plant-trees" class="m-6">
+  <label for="plant-trees">Plant trees: plant ${plantTrees.toFixed(2)} trees.</label></br>
 `;
   chooseOffset();
 }
 
 function chooseOffset() {
-  offsetSelect.addEventListener("change", function () {
-    selectedOffset = offsetSelect.value;
-    offsetSelectionEl.innerHTML = `Selected offset: ${selectedOffset}`;
-    console.log("Selected offset:", selectedOffset);
-  });
+  document
+    .querySelectorAll('input[type="radio"][name="offset"]')
+    .forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        // Inside the event listener, get the value of the selected radio button
+        selectedOffset = this.value; // 'this' refers to the radio button that was changed
+        console.log("Selected offset: ", selectedOffset);
+      });
+    });
 }
 
 function renderConfirmation() {
-  confirmationEl.innerHTML = `Thank you for submitting your answers!`;
+  btn.innerHTML = ``;
+  confirmationEl.innerHTML = `<p class="text-2xl text-center">Thank you for submitting your answers!</p>`;
 }
-
-submitBtnEl.addEventListener("click", addUserToDB);
 
 async function addUserToDB(gender) {
   try {
