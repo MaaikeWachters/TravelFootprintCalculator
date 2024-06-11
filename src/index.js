@@ -278,12 +278,12 @@ const travelDistances = {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDWciAGh3ZokBMZZUjy0gIR_uzWjiwkLys",
-  authDomain: "travelfootprintcalculato-fb1ef.firebaseapp.com",
-  projectId: "travelfootprintcalculato-fb1ef",
-  storageBucket: "travelfootprintcalculato-fb1ef.appspot.com",
-  messagingSenderId: "752591049226",
-  appId: "1:752591049226:web:3dbead4f67c96a8965c5f3",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
@@ -352,7 +352,6 @@ const btn = document.getElementById("btn-container");
 
 function renderButton() {
   if (showButton) {
-  
     if (btn) {
       btn.innerHTML = `<button class="btn w-80 bg-red-500 text-black" type="button" id="submit-btn">Submit</button>`;
       const submitBtnEl = document.getElementById("submit-btn");
@@ -638,7 +637,9 @@ function renderEmissions() {
   <input type="radio" id="car" name="transport" value="car" class="m-6">
 <label for="car">Car: ${calculatedEmissions_car.toFixed(2)} kg CO2 </label><br>
 <input type="radio" id="train" name="transport" value="train" class="m-6">
-<label for="train">Train: ${calculatedEmissions_train.toFixed(2)} kg CO2</label><br>
+<label for="train">Train: ${calculatedEmissions_train.toFixed(
+    2
+  )} kg CO2</label><br>
 <input type="radio" id="plane" name="transport" value="plane" class="m-6">
 <label for="plane">Plane: ${calculatedEmissions_plane.toFixed(2)} kg CO2</label>
 </div>
@@ -694,15 +695,25 @@ function renderEmissionsForChosenTransport() {
   calculateOffset();
   offsetSelect.innerHTML = `
   <input type="radio" id="nobeef" name="offset" value="nobeef" class="m-6">
-  <label for="nobeef">No beef: do not eat ${noBeef.toFixed(2)} kg of beef.</label></br>
+  <label for="nobeef">No beef: do not eat ${noBeef.toFixed(
+    2
+  )} kg of beef.</label></br>
   <input type="radio" id="cycling" name="offset" value="cycling" class="m-6">
-  <label for="cycling">Cycling: cycle ${cycling.toFixed(2)} km instead of driving a car.</label></br>
+  <label for="cycling">Cycling: cycle ${cycling.toFixed(
+    2
+  )} km instead of driving a car.</label></br>
   <input type="radio" id="plastic-bags" name="offset" value="plastic-bags" class="m-6">
-  <label for="plastic-bags">Plastic bags: say no to ${plasticBags.toFixed(2)} plastic bags.</label></br>
+  <label for="plastic-bags">Plastic bags: say no to ${plasticBags.toFixed(
+    2
+  )} plastic bags.</label></br>
   <input type="radio" id="secondhand-clothing" name="offset" value="secondhand-clothing" class="m-6">
-  <label for="secondhand-clothing">Secondhand clothing: buy ${secondhandClothing.toFixed(2)} kg of secondhand clothing instead of new.</label></br>
+  <label for="secondhand-clothing">Secondhand clothing: buy ${secondhandClothing.toFixed(
+    2
+  )} kg of secondhand clothing instead of new.</label></br>
   <input type="radio" id="plant-trees" name="offset" value="plant-trees" class="m-6">
-  <label for="plant-trees">Plant trees: plant ${plantTrees.toFixed(2)} trees.</label></br>
+  <label for="plant-trees">Plant trees: plant ${plantTrees.toFixed(
+    2
+  )} trees.</label></br>
 `;
   chooseOffset();
 }
